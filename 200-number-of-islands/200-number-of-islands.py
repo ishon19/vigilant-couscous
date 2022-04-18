@@ -8,12 +8,13 @@ class Solution:
         num_islands = 0
         
         def dfs(r,c):
-            grid[r][c] = '0'
-            if(r+1 < rows and grid[r+1][c] == '1'): dfs(r+1,c)
-            if(c+1 < cols and grid[r][c+1] == '1'): dfs(r,c+1)
-            if(r-1 >= 0 and grid[r-1][c] == '1'): dfs(r-1,c)
-            if(c-1 >= 0 and grid[r][c-1] == '1'): dfs(r,c-1)
-        
+            if grid[r][c] == '1':
+                grid[r][c] = '0'
+                if(r+1 < rows): dfs(r+1,c)
+                if(c+1 < cols): dfs(r,c+1)
+                if(r-1 >= 0): dfs(r-1,c)
+                if(c-1 >= 0): dfs(r,c-1)
+
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == '1':
