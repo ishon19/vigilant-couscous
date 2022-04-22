@@ -10,12 +10,8 @@ class Solution:
                 return False
             
             grid[r][c] = 0
-            up = dfs(r-1,c)
-            down = dfs(r+1, c)
-            right = dfs(r,c+1)
-            left = dfs(r,c-1)
             
-            return up and down and right and left
+            dfs(r-1,c), dfs(r+1, c), dfs(r,c+1), dfs(r,c-1)                    
         
         for r in range(rows):
             for c in range(cols):
