@@ -3,7 +3,7 @@ class Solution:
         hashtable = {key:s.count(key) for key in s}
         if len(hashtable) == 1:
             return len(s)
-        print(hashtable)
+        # print(hashtable)
         max_len = 0        
         seen = False
         for key in hashtable:
