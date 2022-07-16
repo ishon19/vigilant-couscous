@@ -1,6 +1,5 @@
 class Solution:
-    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:                        
-        
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:                            
         @lru_cache(None)
         def dfs(moves,i,j):
             # bounds check
@@ -14,7 +13,7 @@ class Solution:
             ans +=  (dfs(moves-1,i - 1, j) + dfs(moves-1,i + 1, j) + dfs(moves-1,i, j - 1) + dfs(moves-1,i, j + 1))%(1000000007)
             return ans
         
-        return dfs(maxMove, startRow, startColumn)%(1000000007)
+        return dfs(maxMove, startRow, startColumn)
         
         
         
