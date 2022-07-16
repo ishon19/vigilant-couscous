@@ -1,6 +1,6 @@
 class Solution:
     def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:                            
-        @lru_cache(None)
+        @cache
         def dfs(moves,i,j):
             # bounds check
             if (i==m or j==n or i<0 or j<0):
