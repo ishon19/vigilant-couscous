@@ -3,10 +3,11 @@ class Solution:
         hashmap = defaultdict(list)
         
         for s in strs:
-            if "".join(sorted(s)) not in hashmap:                              
-                hashmap["".join(sorted(s))] = [s]
+            key = "".join(sorted(s))
+            if key not in hashmap:                              
+                hashmap[key] = [s]
             else:
-                hashmap["".join(sorted(s))].append(s)   
+                hashmap[key].append(s)   
         
         ans = [hashmap[val] for val in hashmap]        
         
