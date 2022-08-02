@@ -1,14 +1,10 @@
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
-        def flatten(matrix):
-            mat = []
-            
-            for i in range(len(matrix)):
-                for j in range(len(matrix[0])):
-                    mat.append(matrix[i][j])        
-            mat.sort()
-            return mat
+        flat = []
         
-        flat = flatten(matrix)
+        for i in range(len(matrix)):
+            flat += matrix[i]
+        
+        flat.sort()
         
         return flat[k-1]
