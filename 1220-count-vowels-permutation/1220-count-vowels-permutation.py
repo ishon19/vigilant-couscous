@@ -1,23 +1,9 @@
 class Solution:
-    def countVowelPermutation(self, n: int) -> int:
-        vowelMap = {
-            "$": ["a", "e", "i", "o", "u"],
-            "a": ["e"],
-            "e": ["a", "i"],
-            "i": ["a", "e", "o", "u"],
-            "o": ["i", "u"],
-            "u": ["a"]
-        }
-        
-        @cache
-        def recurse(i, letter):
-            if i == n:
-                return 1
-            
-            res = 0
-            for nextLetter in vowelMap[letter]:
-                res += recurse(i + 1, nextLetter)
-                        
-            return res
-        
-        return recurse(0, "$") % (pow(10, 9) + 7)
+    def countVowelPermutation(self, n: int) -> int:    
+        a, e, i, o, u = 1, 1, 1, 1, 1
+        # figure out how many ways each character is generated in the next cycle
+        # we start with 1, so if in next iteration we have some character how 
+        # would it had been generated, if we draw the diagram it's easy to see
+        for _ in range(n - 1):
+            a, e, i, o, u = e + i + u, a + i, e + o, i, i + o
+        return (a + e + i + o + u) % (10**9 + 7)
