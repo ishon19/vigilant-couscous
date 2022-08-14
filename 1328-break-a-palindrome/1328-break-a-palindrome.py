@@ -1,6 +1,6 @@
 class Solution:
     def breakPalindrome(self, palindrome: str) -> str:
-        if len(palindrome) == 1:
+        if len(palindrome) <= 1:
             return ""
         
         n = len(palindrome)
@@ -9,4 +9,4 @@ class Solution:
             if palindrome[i] != 'a':
                 return palindrome[:i]+'a'+palindrome[i+1:]
         
-        return "" if n<1 else palindrome[:-1]+'b'
+        return palindrome[:-1]+'b'
