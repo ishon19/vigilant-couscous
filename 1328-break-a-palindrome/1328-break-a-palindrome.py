@@ -1,12 +1,7 @@
-class Solution:
-    def breakPalindrome(self, palindrome: str) -> str:
-        if len(palindrome) <= 1:
-            return ""
+class Solution(object):
+    def breakPalindrome(self, S):
+        for i in range(len(S) // 2):
+            if S[i] != 'a':
+                return S[:i] + 'a' + S[i + 1:]
+        return S[:-1] + 'b' if S[:-1] else ''
         
-        n = len(palindrome)
-        
-        for i in range(n//2):
-            if palindrome[i] != 'a':
-                return palindrome[:i]+'a'+palindrome[i+1:]
-        
-        return palindrome[:-1]+'b'
