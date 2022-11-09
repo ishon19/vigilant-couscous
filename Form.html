@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Employee Registration Form - Shashwat Pathak Assessment</title>
+</head>
+
+<body>
+    <style>
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            width: 80vh;
+            box-shadow: -1px -3px 15px 1px rgba(0, 0, 0, 0.29);
+            border-radius: 12px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .form-container:hover {
+            box-shadow: -1px -2px 15px 1px rgba(0, 0, 0, 0.45);
+        }
+
+        .parent {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            padding: 2rem;
+        }
+
+        input:not([type="radio"]):not([type="checkbox"]) {
+            height: 2rem;
+            width: 100%;
+            border: solid 1px;
+            border-radius: 5px;
+            padding: 0.25rem;
+        }
+
+        input[type="text"]:hover {
+            border: solid 1px greenyellow;
+        }
+
+        .form-element {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            font-size: large;
+            font-weight: bold;
+        }
+
+        button {
+            height: 3rem;
+            width: 10rem;
+            border-radius: 10px;
+            background-color: aquamarine;
+            font-weight: bold;
+            font-size: large;
+            cursor: pointer;
+            box-shadow: -1px -3px 15px 1px rgba(0, 0, 0, 0.29);
+        }
+
+        button:hover {
+            box-shadow: -1px -2px 15px 1px rgba(0, 0, 0, 0.45);
+        }
+
+        p {
+            font-size: x-large;
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="parent">
+        <div class="form-container">
+            <form>
+                <div class="form-element">
+                    <p>Employee Registration Form</p>
+                </div>
+
+                <div class="form-element">
+                    <label for="name">Enter Employee Name</label>
+                    <input type="text" name="name" id="name" required />
+                </div>
+
+                <div class="form-element">
+                    <label for="gender">Gender</label>
+                    <input type="radio" name="gender" id="gender" value="Male">Male</input>
+                    <input type="radio" name="gender" id="gender" value="Female">Female</input>
+                    <input type="radio" name="gender" id="gender" value="Other">Other</input>
+                </div>
+
+                <div class="form-element">
+                    <label for="hobbies">Hobbies</label>
+                    <input name="hobbies" type="checkbox" value="Games">Games</input>
+                    <input name="hobbies" type="checkbox" value="Reading">Reading</input>
+                    <input name="hobbies" type="checkbox" value="Music">Music</input>
+                    <input name="hobbies" type="checkbox" value="Reading">Reading</input>
+                </div>
+
+                <div class="form-element">
+                    <button id="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submit").addEventListener('click', function () {
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            if (name.length < 4 || name.length > 16) {
+                alert('Name must be between 4 to 16 characters');
+                return;
+            }
+
+            if (!/^[A-Za-z]+$/.test(name)) {
+                alert('Please enter only alphabets in name!');
+                return;
+            }
+
+            if (name[0].toUpperCase() != name[0]) {
+                alert('The first character of name should be capital');
+                return;
+            }
+
+            let genderEle = document.getElementsByName('gender');
+            let checkList = [...genderEle].some(radio => radio.checked)
+            if (!checkList) {
+                alert('Please select a gender');
+                return;
+            }
+
+            let hobbiesEle = document.getElementsByName('hobbies');
+            let hobbyChecked = [...hobbiesEle].filter(hobby => hobby.checked === true)
+            console.log(hobbyChecked)
+            if (hobbyChecked.length < 2) {
+                alert('Please select atleast 2 hobbies');
+                return;
+            }
+
+            alert('Form validated successfully!');
+        });
+    </script>
+</body>
+
+</html>
