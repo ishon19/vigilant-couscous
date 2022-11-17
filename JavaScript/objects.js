@@ -21,3 +21,22 @@ const user2 = createUser("test", 12);
 user1.increment();
 user1.print();
 user2.print();
+
+// same thing by using new keyword
+function User(name, score) {
+  this.name = name;
+  this.score = score;
+}
+
+// since, functions in JS are objects as well
+User.prototype.increment = function () {
+  this.score++;
+};
+
+User.prototype.print = function () {
+  console.log(this.name + ", your score is: ", this.score);
+};
+
+const user3 = new User("Shreyanss", 90);
+user3.increment();
+user3.print();
