@@ -1,0 +1,1 @@
+Keep going down to the left subtree, and keep on adding the visited node count and adding to the stack as well. When popping back from the stack
