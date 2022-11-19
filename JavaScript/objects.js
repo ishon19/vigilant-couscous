@@ -40,3 +40,16 @@ User.prototype.print = function () {
 const user3 = new User("Shreyanss", 90);
 user3.increment();
 user3.print();
+
+function isSame(obj1, obj2) {
+  prop1 = Object.getOwnPropertyNames(obj1);
+  prop2 = Object.getOwnPropertyNames(obj2);
+  console.log(prop1, prop2);
+  if (prop1.length !== prop2.length) {
+    console.log("No match");
+    return false;
+  }
+  
+}
+
+isSame({ a: 23 }, { a: 45 });
