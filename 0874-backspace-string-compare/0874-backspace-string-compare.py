@@ -17,6 +17,6 @@ class Solution:
             else:
                 if c!= '#': stack2.append(c)
 
-        print(stack1, stack2)
+        # print(stack1, stack2)
 
         return stack1 == stack2
