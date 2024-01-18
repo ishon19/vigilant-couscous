@@ -14,7 +14,7 @@ pale, bale -> true
 import collections
 
 def checkOneAway(s1, s2):
-    if abs(len(s1) - len(s2)) > 1:
+    if abs(len(s1) - len(s2)) > 1 or s1 == s2:
         return False
 
     if len(s1) > len(s2):
