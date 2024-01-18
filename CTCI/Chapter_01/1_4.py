@@ -12,7 +12,6 @@ Output: True (permutations: "taco cat", "atco cta", etc.)
 """
 
 # my solution
-
 import re
 import collections
 
@@ -23,11 +22,9 @@ def isPalindromePerm(string):
 
     # clean the string
     string = "".join(re.split('\W+', string.strip().lower()))
-    print(string)
 
     # map the characters
     counter = collections.Counter(string)
-    print(counter)
 
     # if there is just one key, it a palindrome
     if len(counter.keys()) == 1:
@@ -39,7 +36,7 @@ def isPalindromePerm(string):
             if v % 2 != 0:
                 allEven = False
                 break
-
+        
         if allEven:
             return True
 
