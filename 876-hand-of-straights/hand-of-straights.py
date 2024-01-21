@@ -23,7 +23,7 @@ class Solution:
                         break
                 if not appended:
                     res.append([num])          
-        print('res', res)
+        # print('res', res)
         for sub in res:
             if not len(sub) == groupSize:
                 return False
