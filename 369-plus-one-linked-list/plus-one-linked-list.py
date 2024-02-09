@@ -16,10 +16,10 @@ class Solution:
             nums.append(str(ptr.val))
             ptr = ptr.next
         
-        print('nums', nums)
+        # print('nums', nums)
         num = int(''.join(nums)) + 1
         newList = list(str(num))
-        print('new list', newList)
+        # print('new list', newList)
 
         ptr = temp = head
         if len(nums) < len(list(str(num))):
@@ -32,7 +32,7 @@ class Solution:
                 ptr2.val = ele
                 ptr2 = ptr2.next
         
-        print('final', ptr)
+        # print('final', ptr)
         
         return ptr
 
