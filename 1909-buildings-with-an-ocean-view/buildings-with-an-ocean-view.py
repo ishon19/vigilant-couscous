@@ -8,7 +8,7 @@ class Solution:
                 stack.append(height)
                 res.append(idx)
             else:
-                if height > stack[-1]:
+                while height > stack[-1]:
                     stack.pop()
                     stack.append(height)
                     res.append(idx)
