@@ -11,12 +11,12 @@ class Solution:
             else:
                 look = s[l]
 
-                while l<len(s) and s[l] == look:
+                while l < len(s) and s[l] == look:
                     l += 1
 
                 while r >= 0 and s[r] == look:
                     r -= 1
         
-        return 0 if r - l + 1 < 0 else r - l + 1
+        return max(0, r - l + 1)
                 
                 
