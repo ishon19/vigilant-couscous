@@ -12,20 +12,20 @@ class Solution:
         if not root.left and not root.right:
             return chr(97 + root.val)
         
-        strings = []
+        res = 'z' * 26
 
         def helper(node, pattern):
+            nonlocal res
+
             if not node:
                 return
             
             if not node.left and not node.right:
                 val = pattern + chr(97 + node.val)
-                strings.append(val[::-1])
+                res = min(res, val[::-1])
             
             return helper(node.left, pattern + chr(97 + node.val)) or helper(node.right, pattern + chr(97 + node.val))
         
         helper(root, '')
-        strings.sort()
-        # print('strings', strings)
-        return strings[0]
+        return res
         
