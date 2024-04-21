@@ -7,7 +7,10 @@ class Solution:
 
         for u, v in edges:
             graph[u].append(v)
-            graph[v].append(u)            
+            graph[v].append(u)   
+
+        if destination in graph[source]:
+            return True         
 
         q = collections.deque([source])
         seen = set([source])
@@ -22,7 +25,8 @@ class Solution:
             for node in graph[root]:
                 if node not in seen:
                     if node == destination:
-                        return True        
+                        return True 
+                    seen.add(node)       
                     q.append(node)
         
         return False
