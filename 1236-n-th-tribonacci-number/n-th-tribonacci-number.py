@@ -1,19 +1,10 @@
 class Solution:
     def tribonacci(self, n: int) -> int:
-        if n == 0:
-            return 0
-            
-        if n <=2:
-            return 1
-        
+        if n == 0: return 0
+        if n <=2: return 1
         a, b, c = 0, 1, 1
-        d = a + b + c
-
-        for i in range(3, n):
-            a, b, c = b, c, d
-            d = a + b + c
-        
-        return d
+        for i in range(n-2): a, b, c = b, c, a +b+c
+        return c
 
         # dp = [0] * (n + 1)
         # dp[1] = 1
