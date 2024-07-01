@@ -8,7 +8,7 @@ class Solution:
 
         while end < len(arr):
             if all(num%2!=0 for num in arr[start: end+1]):
-                res = True
+                return True
             start += 1
             end += 1
         
