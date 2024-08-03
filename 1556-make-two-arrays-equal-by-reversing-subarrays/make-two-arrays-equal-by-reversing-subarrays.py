@@ -1,5 +1,9 @@
 class Solution:
     def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
-        if len(target) != len(arr): return False
-        if sorted(target) != sorted(arr): return False
-        return True
+        # sorting
+        # if len(target) != len(arr): return False
+        # if sorted(target) != sorted(arr): return False
+        # return True
+
+        # dictionary
+        return collections.Counter(target) == collections.Counter(arr)
