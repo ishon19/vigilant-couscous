@@ -6,12 +6,10 @@ class Solution:
 
         itr = k // loss
         start = k - itr * loss
-        # print('here', itr, start)
 
-        while start >= 0:
-            for i in range(len(chalk)):
-                print(chalk[i], start)
-                if chalk[i] > start:
-                    return i
-                start -= chalk[i]
+        for i in range(len(chalk)):
+            print(chalk[i], start)
+            if chalk[i] > start:
+                return i
+            start -= chalk[i]
         return -1
