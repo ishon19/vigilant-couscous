@@ -18,7 +18,7 @@ class Solution:
         left, right = 0, n - 1
         idx = 0
 
-        while top <= bottom and left <= right:
+        while top <= bottom and left <= right and idx < len(values):
             # top row
             for i in range(left, right + 1):
                 if idx < len(values): 
