@@ -7,9 +7,14 @@ class Solution:
         
         for i in range(rows):
             wins = 0
+            loss = 0
             for j in range(cols):
                 if grid[i][j] == 1:
                     wins += 1
+                else: 
+                    loss += 1
+                if loss > 1:
+                    break
             if wins == cols - 1:
                 return i
         
