@@ -1,20 +1,19 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        left = 1
-        right = max(piles)
+        l, r, res = 1, 10**9, -1
 
-        while left < right:
-            rate = (left + right)//2
-
-            time = 0
-
-            for pile in piles:
-                time += math.ceil(pile/rate)
-            
-            if time <= h:
-                right = rate
-            else:
-                left = rate + 1
+        def isFeasible(k):
+            hours = 0
+            for p in piles:
+                hours += ceil(float(p)/k)
+            return hours <= h
         
-        return left
+        while l<=r:
+            mid = (l+r)//2
+            if isFeasible(mid):
+                r = mid - 1
+                res = mid
+            else:
+                l = mid + 1        
+        return res
             
