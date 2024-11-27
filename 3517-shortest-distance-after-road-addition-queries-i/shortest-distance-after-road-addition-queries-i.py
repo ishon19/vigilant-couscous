@@ -8,12 +8,11 @@ class Solution:
             dist = {0: 0}
             while q:
                 node = q.popleft()
-                if node not in graph:
-                    continue
                 for neighbor in graph[node]:
                     if neighbor not in dist:
                         dist[neighbor] = dist[node] + 1
-                        q.append(neighbor)            
+                        if neighbor in graph:
+                            q.append(neighbor)            
             return dist[n-1]
 
         for u, v in queries:
