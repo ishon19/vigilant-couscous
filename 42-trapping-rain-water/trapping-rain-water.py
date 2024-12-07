@@ -5,13 +5,13 @@ class Solution:
         res = 0
 
         while l < r:
-            if maxl < maxr:
-                l += 1
-                maxl = max(maxl, height[l])
-                res += maxl - height[l]
-            else:
+            if maxr < maxl:
                 r -= 1
                 maxr = max(maxr, height[r])
                 res += maxr - height[r]
-        
-        return res
+            else:
+                l += 1
+                maxl = max(maxl, height[l])
+                res += maxl - height[l]
+
+        return res 
