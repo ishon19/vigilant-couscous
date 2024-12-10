@@ -1,23 +1,19 @@
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:    
+    def dfs(self, grid, row, col):
         rows, cols = len(grid), len(grid[0])
+        dirs = [(1,0), (-1,0), (0,-1), (0,1)]
+        if 0<=row<rows and 0<=col<cols and grid[row][col] == '1':
+            grid[row][col] = '0'
+            for dr, dc in dirs:
+                nr, nc = row + dr, col + dc        
+                self.dfs(grid, nr, nc)
         
-        def dfs(row, col):
-            if row in range(rows) and col in range(cols) and grid[row][col] != '0':
-                # mark this point as visited
-                grid[row][col] = '0'
-
-                # traverse all of the directions
-                dfs(row, col+1)
-                dfs(row, col-1)
-                dfs(row - 1, col)
-                dfs(row + 1, col)            
-        
-        ans = 0
+    def numIslands(self, grid: List[List[str]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        res = 0
         for row in range(rows):
             for col in range(cols):
-                if grid[row][col] == "1":
-                    ans += 1
-                    dfs(row, col)
-        
-        return ans
+                if grid[row][col] == '1':
+                    res += 1
+                    self.dfs(grid, row, col)       
+        return res
