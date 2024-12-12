@@ -1,19 +1,19 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        # stack based approach should work for this problem
+        # check if it is valid parentheses
         stack = []
 
         for c in s:
-            if not stack:
-                stack.append(c)
-            else:
-                if stack[-1] == '(' and c == ')':
+            if stack:
+                if c == ')' and stack[-1] == '(':
                     stack.pop()
-                elif stack[-1] == '{' and c == '}':
+                elif c == '}' and stack[-1] == '{':
                     stack.pop()
-                elif stack[-1] == '[' and c == ']':
+                elif c == ']' and stack[-1] == '[':
                     stack.pop()
                 else:
                     stack.append(c)
-        
-        return not stack
+            else:
+                stack.append(c)  
+    
+        return len(stack) == 0
