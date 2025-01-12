@@ -1,19 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        # check if it is valid parentheses
         stack = []
+        charMap = {'(': ')', '{': '}', '[':']'}
 
         for c in s:
-            if stack:
-                if c == ')' and stack[-1] == '(':
-                    stack.pop()
-                elif c == '}' and stack[-1] == '{':
-                    stack.pop()
-                elif c == ']' and stack[-1] == '[':
+            if not stack:
+                stack.append(c)
+            else:
+                if stack[-1] in charMap.keys() and c == charMap[stack[-1]]:
                     stack.pop()
                 else:
                     stack.append(c)
-            else:
-                stack.append(c)  
-    
+        
         return len(stack) == 0
