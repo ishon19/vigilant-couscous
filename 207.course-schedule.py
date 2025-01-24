@@ -7,43 +7,40 @@
 # @lc code=start
 class Solution:
     def findIndegrees(self, graph, numCourses):
-        indegree = {i: 0 for i in range(numCourses)}
-        
+        indegrees = {i:0 for i in range(numCourses)}
         for node in graph:
             for neighbor in graph[node]:
-                indegree[neighbor] += 1
-        
-        return indegree
+                indegrees[neighbor] += 1        
+        return indegrees
     
     def topologicalSort(self, graph, numCourses):
         res = []
-        q = deque()
-        indegrees = self.findIndegrees(graph, numCourses)
-
-        for node, indegree in indegrees.items():
+        indegreeMap = self.findIndegrees(graph, numCourses)
+        q = deque()        
+        for node, indegree in indegreeMap.items():
             if indegree == 0:
-                q.append(node)
-        
+                q.append(node)        
         while q:
             node = q.popleft()
             res.append(node)
-
             for neighbor in graph[node]:
-                indegrees[neighbor] -= 1
-                if indegrees[neighbor] == 0:
+                indegreeMap[neighbor] -= 1
+                if indegreeMap[neighbor] == 0:
                     q.append(neighbor)
-        
         return res
 
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # the idea is to do a topological sort on the pre-requisites and see if we can finish
+        if not numCourses:
+            return False
+        
         graph = defaultdict(list)
-
-        for a, b in prerequisites:
-            graph[b].append(a)
-        
+        for course, prereq in prerequisites:
+            graph[prereq].append(course)
         order = self.topologicalSort(graph, numCourses)
-        
         return len(order) == numCourses
+        
+
 
 # @lc code=end
 
