@@ -15,17 +15,25 @@ class Solution:
         #     return memo[(index, remaining)]
         
         # return helper(0, amount)
-        dp = [[0] * (amount + 1) for _ in range(len(coins) + 1)]
+        # dp = [[0] * (amount + 1) for _ in range(len(coins) + 1)]
 
-        for i in range(len(coins) + 1):
-            dp[i][0] = 1
+        # for i in range(len(coins) + 1):
+        #     dp[i][0] = 1
 
-        for i in range(1, len(coins) + 1):
-            for j in range(amount + 1):
-                # exclude coin
-                dp[i][j] = dp[i-1][j]
-                if j >= coins[i-1]:
-                    # include the coin
-                    dp[i][j] += dp[i][j - coins[i-1]]
+        # for i in range(1, len(coins) + 1):
+        #     for j in range(amount + 1):
+        #         # exclude coin
+        #         dp[i][j] = dp[i-1][j]
+        #         if j >= coins[i-1]:
+        #             # include the coin
+        #             dp[i][j] += dp[i][j - coins[i-1]]
         
-        return dp[len(coins)][amount]
+        # return dp[len(coins)][amount]
+
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        for coin in coins:
+            for j in range(coin, amount + 1):
+                dp[j] += dp[j-coin]
+        
+        return dp[amount]
