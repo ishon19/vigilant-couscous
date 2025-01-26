@@ -5,20 +5,28 @@ class Solution:
             return False
         
         target = total // 2
-        memo = {}
+        # memo = {}
 
-        def partitionHelper(index, currentTarget):
-            if currentTarget == 0:
-                return True
+        # def partitionHelper(index, currentTarget):
+        #     if currentTarget == 0:
+        #         return True
             
-            if index == len(nums) or target < 0:
-                return False
+        #     if index == len(nums) or target < 0:
+        #         return False
             
-            if (index, currentTarget) in memo:
-                return memo[(index, currentTarget)]
+        #     if (index, currentTarget) in memo:
+        #         return memo[(index, currentTarget)]
             
-            result = partitionHelper(index + 1, currentTarget - nums[index]) or partitionHelper(index + 1, currentTarget)
-            memo[(index, currentTarget)] = result
-            return result
+        #     result = partitionHelper(index + 1, currentTarget - nums[index]) or partitionHelper(index + 1, currentTarget)
+        #     memo[(index, currentTarget)] = result
+        #     return result
         
-        return partitionHelper(0, target)
+        # return partitionHelper(0, target)
+        dp = [False] * (target + 1)
+        dp[0] = True
+
+        for num in nums:
+            for j in range(target, num - 1, -1):
+                dp[j] = dp[j] or dp[j - num]
+        
+        return dp[target]
