@@ -1,16 +1,10 @@
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        res = []
         stack = []
 
-        for idx, height in reversed(list(enumerate(heights))):
-            if not stack:
-                stack.append(height)
-                res.append(idx)
-            else:
-                while height > stack[-1]:
-                    stack.pop()
-                    stack.append(height)
-                    res.append(idx)
+        for i, height in enumerate(heights):
+            while stack and stack[-1][1] <= height:
+                stack.pop()
+            stack.append((i, height))
         
-        return sorted(res)
+        return [i for i, _ in stack]
