@@ -7,16 +7,16 @@
 # @lc code=start
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        filtered_chars = [ch.lower() for ch in s if ch.isalnum()]
+        cleanStr = [ch.lower() for ch in s if ch.isalnum()]
 
-        l,r = 0, len(filtered_chars) - 1
+        l, r = 0, len(cleanStr)-1
 
         while l < r:
-            if filtered_chars[l] != filtered_chars[r]:
+            if cleanStr[l] != cleanStr[r]:
                 return False
             l += 1
             r -= 1
-        
+
         return True
 # @lc code=end
 
