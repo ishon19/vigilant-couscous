@@ -7,19 +7,13 @@
 # @lc code=start
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        # the idea is to group the strings something unique, we can use the
-        # sorted version of the strings to create the key
-        cache = {}
+        anagramList = defaultdict(list)
 
         for word in strs:
-            sortedWord = ''.join(sorted(word))
-            if sortedWord in cache:
-                cache[sortedWord].append(word)
-            else:
-                cache[sortedWord] = [word]
+            hash = ''.join(sorted(word))
+            anagramList[hash].append(word)
         
-        return [val for val in cache.values()]
-
+        return list(anagramList.values())
         
 # @lc code=end
 
