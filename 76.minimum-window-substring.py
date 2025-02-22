@@ -9,33 +9,37 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if not s or not t:
             return ""
-
-        need = Counter(t)
-
+        
+        need = {}
+        for c in t:
+            need[c] = need.get(c, 0) + 1
+        
+        have = {}
+        required = len(need)
         left = 0
-        min_len = float("inf")
-        min_left = 0
-        still_needed = len(t)
+        current = 0
+        res = ""
+        minlen = float("inf")
 
         for right, char in enumerate(s):
-            if char in need:
-                need[char] -= 1
-                if need[char] >= 0:
-                    still_needed -= 1
+            have[char] = have.get(char, 0) + 1 
 
-            while still_needed == 0:
-                if right - left + 1 < min_len:
-                    min_len = right - left + 1
-                    min_left = left
+            if char in need and have[char] == need[char]:
+                current += 1
+            
+            while current == required:
+                if right - left + 1 < minlen:
+                    minlen = right - left + 1
+                    res = s[left:right+1]
 
-                left_char = s[left]
-                if left_char in need:
-                    need[left_char] += 1
-                    if need[left_char] > 0:
-                        still_needed += 1
+                exclude = s[left]
+                have[exclude] -= 1
+
+                if exclude in need and have[exclude] < need[exclude]:
+                    current -= 1
                 left += 1
         
-        return "" if min_len == float("inf") else s[min_left:min_left+min_len]
+        return res
 
 # @lc code=end
 
