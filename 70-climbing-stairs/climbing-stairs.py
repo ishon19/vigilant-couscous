@@ -1,10 +1,6 @@
 class Solution:
+    @cache
     def climbStairs(self, n: int) -> int:
-        @cache
-        def climb(steps):
-            if steps >= 0:
-                if steps == 0 or steps == 1:
-                    return 1
-                
-                return climb(steps-1) + climb(steps-2)
-        return climb(n)
+        if n == 0 or n == 1:
+            return 1        
+        return self.climbStairs(n-1) + self.climbStairs(n-2)
