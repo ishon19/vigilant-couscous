@@ -7,6 +7,7 @@
 # @lc code=start
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        
+        intervals.sort(key=)
+        count = 0
 # @lc code=end
 
