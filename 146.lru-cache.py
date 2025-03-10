@@ -16,61 +16,54 @@ class Node:
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.capacity = capacity
         self.cache = {}
+        self.size = capacity
         self.head = Node(0, 0)
         self.tail = Node(0, 0)
         self.head.next = self.tail
         self.tail.prev = self.head
     
-    def remove_node(self, node):
-        prev = node.prev
-        next = node.next
-        prev.next = next
-        next.prev = prev
+    def move_to_head(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        save = self.head.next
+        self.head.next = node
+        node.prev = self.head
+        node.next = save
+        save.prev = node
+    
+    def pop_tail(self):
+        prev = self.tail.prev
+        prev.prev.next = self.tail
+        self.tail.prev = prev.prev
+        return prev
 
     def add_node(self, node):
         save = self.head.next
         self.head.next = node
+        save.prev = node
         node.next = save
         node.prev = self.head
-        save.prev = node
-        
-
-    def move_to_head(self, node):
-        self.remove_node(node)
-        self.add_node(node)
-    
-    def pop_tail(self):
-        prev = self.tail.prev
-        self.remove_node(prev)
-        return prev
 
     def get(self, key: int) -> int:
-        node = self.cache.get(key)
-        if not node:
-            return -1
-        # move to the head
-        self.move_to_head(node)
-        return node.value
+       node = self.cache.get(key, None)
+       if node:
+           self.move_to_head(node)
+           return node.value
+       return -1
 
     def put(self, key: int, value: int) -> None:
-        node = self.cache.get(key)
+        node = self.cache.get(key, None)
         if node:
-            # move this to the head
             node.value = value
             self.move_to_head(node)
-            return
         else:
             newNode = Node(key, value)
-            self.cache[key] = newNode
             self.add_node(newNode)
-
-            # do a size check 
-            if len(self.cache) > self.capacity:
-                # pop tail
-                tail = self.pop_tail()
-                del self.cache[tail.key]
+            self.cache[key] = newNode
+            if len(self.cache) > self.size:
+                node = self.pop_tail()
+                del self.cache[node.key]
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
