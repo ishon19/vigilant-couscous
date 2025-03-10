@@ -13,24 +13,25 @@
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         ListNode.__lt__ = lambda self, other: self.val < other.val
+        lists = [lst for lst in lists if lst]
+        if not lists:
+            return None
 
         heap = []
-
         for head in lists:
-            if head:
-                heappush(heap, head)
-            
-        dummy = ListNode(0)
-        curr = dummy
-
-        while heap:
-            node = heappop(heap)
-            curr.next = node
-            curr = curr.next
+            heappush(heap, head)
         
-            if node.next:
-                heappush(heap, node.next)
-
-        return dummy.next
+        dummy = ListNode()
+        curr = dummy
+        while heap:
+            head = heappop(heap)
+            if head: 
+                curr.next = head
+                curr = curr.next
+                head = head.next
+                if head: 
+                    heappush(heap, head)
+        
+        return dummy.next      
 # @lc code=end
 
