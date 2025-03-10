@@ -16,23 +16,27 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        # use hashmap based approach to store the links
-        linkMap = {None: None}
-
-        ptr = head
-        while ptr:
-            linkMap[ptr] = Node(ptr.val)
-            ptr = ptr.next
+        if not head:
+            return None
         
-        ptr = head
-        while ptr:
-            if ptr.next:
-                linkMap[ptr].next = linkMap[ptr.next]
-            if ptr.random:
-                linkMap[ptr].random = linkMap[ptr.random]
-            ptr = ptr.next
-        
-        return linkMap[head]
+        old_to_new = {}
 
+        current = head
+        while current:
+            old_to_new[current] = Node(current.val)
+            current = current.next
+        
+        current = head
+        while current:
+            if current.next:
+                old_to_new[current].next =  old_to_new[current.next]
+            
+            if current.random:
+                old_to_new[current].random = old_to_new[current.random]
+
+            current = current.next
+        
+        return old_to_new[head]
+               
 # @lc code=end
 
