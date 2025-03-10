@@ -1,17 +1,21 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-       @cache
-       def dfs(start):
-        if start == len(s):
-            return 1
-        
-        ways = 0
-        if s[start] == '0':
-            return ways
-        ways += dfs(start+1)
-        if 10 <= int(s[start:start+2]) <=26:
-            ways += dfs(start + 2)
-        
-        return ways
+        memo = {len(s): 1}
 
-       return dfs(0)
+        def decode(index):
+            if index in memo:
+                return memo[index]
+            
+            if s[index] == '0':
+                return 0
+            
+            ways = decode(index + 1)
+
+            if index + 1 < len(s):
+                if s[index] == '1' or (s[index] == '2' and s[index+1] <= '6'):
+                    ways += decode(index + 2)
+            
+            memo[index] = ways
+            return ways
+        
+        return decode(0)
