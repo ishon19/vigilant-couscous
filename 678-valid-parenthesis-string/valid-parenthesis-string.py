@@ -1,31 +1,21 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        memo = {}
+        open_max, open_min = 0, 0
 
-        def helper(net, idx):
-            if idx == len(s):
-                return net == 0
-            
-            if (net, idx) in memo:
-                return memo[(net, idx)]
-            
-            valid = False
-            if s[idx] == '*':
-                valid |= helper(net + 1, idx + 1)
-
-                if net > 0:
-                    valid |= helper(net - 1, idx + 1)
-                valid |= helper(net, idx + 1)
+        for char in s:
+            if char == '(':
+                open_max += 1
+                open_min += 1
+            elif char == ')':
+                open_min -= 1
+                open_max -= 1
             else:
-                if s[idx] == '(':
-                    valid = helper(net + 1, idx + 1)
-                elif net > 0:
-                    valid |= helper(net - 1, idx + 1)
+                open_min -= 1
+                open_max += 1
             
-            memo[(net, idx)] = valid
-            return valid
+            if open_max < 0:
+                return False
+            
+            open_min = max(open_min, 0)
         
-        return helper(0, 0)
-
-            
-
+        return open_min == 0
