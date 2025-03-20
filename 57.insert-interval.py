@@ -8,20 +8,16 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         res = []
-        
-        for start, end in intervals:
-            new_start, new_end = newInterval
 
-            if end < new_start:
-                res.append([start, end])
-            elif new_end < start:
-                res.append([new_start, new_end])
-                newInterval = [start, end]
+        for interval in intervals:
+            if interval[1] < newInterval[0]:
+                res.append(interval)
+            elif newInterval[1] < interval[0]:
+                res.append(newInterval)
+                newInterval = interval
             else:
-                newInterval = [
-                    min(start, new_start), max(end, new_end)
-                ]
-                
+                newInterval = [min(interval[0], newInterval[0]), max(interval[1], newInterval[1])]
+
         res.append(newInterval)
         return res
 # @lc code=end
