@@ -12,26 +12,21 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        ListNode.__lt__ = lambda self, other: self.val < other.val
-        lists = [lst for lst in lists if lst]
-        if not lists:
-            return None
-
         heap = []
-        for head in lists:
-            heappush(heap, head)
+
+        for i, list in enumerate(lists):
+            if list:
+                heappush(heap, (list.val, i, list))
         
-        dummy = ListNode()
-        curr = dummy
+        dummyNode = ListNode()
+        ptr = dummyNode
         while heap:
-            head = heappop(heap)
-            if head: 
-                curr.next = head
-                curr = curr.next
-                head = head.next
-                if head: 
-                    heappush(heap, head)
-        
-        return dummy.next      
+            _, idx, list = heappop(heap)
+            ptr.next = list
+            if list.next:
+                heappush(heap, (list.next.val, idx, list.next))
+            ptr = ptr.next
+
+        return dummyNode.next
 # @lc code=end
 
