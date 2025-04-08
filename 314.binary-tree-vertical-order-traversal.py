@@ -19,22 +19,24 @@ class Solution:
             return []
         
         q = deque([(root, 0)])
-        max_offset = min_offset = 0
-        
+        leftOffset = rightOffset = 0
+
         while q:
             node, offset = q.popleft()
+
+            leftOffset = min(offset, leftOffset)
+            rightOffset = max(offset, rightOffset)
+
             if node:
-                offsetMap[offset].append(node.val)           
+                offsetMap[offset].append(node.val)
 
-            min_offset = min(min_offset, offset)
-            max_offset = max(max_offset, offset)
+                if node.left:
+                    q.append((node.left, offset - 1))
+                if node.right:
+                    q.append((node.right, offset + 1))
 
-            if node.left:
-                q.append((node.left, offset - 1))
-            if node.right:
-                q.append((node.right, offset + 1))
+        return [val for _, val in sorted(offsetMap.items(), key=lambda x: x[0])]
 
-        return [offsetMap[offset] for offset in range(min_offset, max_offset + 1)]
         
 # @lc code=end
 
