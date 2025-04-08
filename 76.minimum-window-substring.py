@@ -10,36 +10,33 @@ class Solution:
         if not s or not t:
             return ""
         
-        need = {}
-        for c in t:
-            need[c] = need.get(c, 0) + 1
-        
-        have = {}
-        required = len(need)
-        left = 0
-        current = 0
         res = ""
-        minlen = float("inf")
+        count_t = defaultdict(int)
+        count_s = defaultdict(int)
 
-        for right, char in enumerate(s):
-            have[char] = have.get(char, 0) + 1 
+        for char in t:
+            count_t[char] += 1
+        
+        min_length = len(s) + 1
+        left = 0
+        matches = 0
 
-            if char in need and have[char] == need[char]:
-                current += 1
+        for right in range(len(s)):
+            # expand the window by adding the character to the right
+            count_s[s[right]] += 1
+
+            if count_s[s[right]] <= count_t[s[right]]:
+                matches += 1
             
-            while current == required:
-                if right - left + 1 < minlen:
-                    minlen = right - left + 1
-                    res = s[left:right+1]
-
-                exclude = s[left]
-                have[exclude] -= 1
-
-                if exclude in need and have[exclude] < need[exclude]:
-                    current -= 1
+            # shrink the window from left if possible 
+            while count_s[s[left]] >= count_t[s[left]]:
+                count_s[s[left]] -= 1
                 left += 1
+            
+            if matches == len(t) and right - left + 1 < min_length:
+                min_length = right - left + 1
+                res = s[left:right+1]
         
         return res
-
 # @lc code=end
 
