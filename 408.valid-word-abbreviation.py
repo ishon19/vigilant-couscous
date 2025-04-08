@@ -10,24 +10,22 @@ class Solution:
         i, j = 0, 0
 
         while i < len(word) and j < len(abbr):
-            if abbr[j].isalpha():
-                if i >= len(word) or word[i] != abbr[j]:
-                    return False
-                i += 1
-                j += 1
-            else:
+            if abbr[j].isdigit():
                 if abbr[j] == '0':
                     return False
 
-                count = 0
+                skip = 0
                 while j < len(abbr) and abbr[j].isdigit():
-                    count = count * 10 + int(abbr[j])
+                    skip = skip * 10 + int(abbr[j])
                     j += 1
                 
-                i += count
+                i += skip
+            else:
+                if word[i] != abbr[j]:
+                    return False
+                i += 1
+                j += 1
         
         return i == len(word) and j == len(abbr)
-            
-            
 # @lc code=end
 
