@@ -16,9 +16,6 @@ class Solution:
         if not root:
             return None
 
-        left = self.invertTree(root.right)
-        right = self.invertTree(root.left)
-
-        return TreeNode(root.val, left, right)
+        return TreeNode(root.val, self.invertTree(root.right), self.invertTree(root.left))
 # @lc code=end
 
