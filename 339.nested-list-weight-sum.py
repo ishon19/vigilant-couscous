@@ -59,7 +59,7 @@ class Solution:
                 else:
                     total += dfs(item.getList(), depth + 1)
             
-            return total
+            return total 
         return dfs(nestedList, 1)
 # @lc code=end
 
