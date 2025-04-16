@@ -7,14 +7,14 @@
 # @lc code=start
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        res = [-1, -1]
-        sumMap = {}
+        res = []
+        seen = {}
+        
+        for i, num in enumerate(nums):
+            if target - num in seen:
+                return [seen[target-num], i]
+            seen[num] = i
 
-        for i in range(len(nums)):
-            if target - nums[i] in sumMap:
-                return [i, sumMap[target - nums[i]]] 
-            sumMap[nums[i]] = i
-
-        return res        
+        return res
 # @lc code=end
 
