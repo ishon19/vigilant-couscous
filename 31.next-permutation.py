@@ -10,30 +10,23 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        if n <= 1:
-            return 
-
-        # find the first decreasing number from the end
-        i = n - 2
-        while i >= 0 and nums[i] >= nums[i + 1]: 
-            i -= 1
+        k = len(nums) - 2
+        while k >= 0:
+            if nums[k] < nums[k+1]:
+                break 
+            k -= 1
         
-        # find element to swap with 
-        if i >= 0:
-            j = n - 1
-            while  nums[j] <= nums[i]:
-                j -= 1
-        
-            nums[i], nums[j] = nums[j], nums[i]
-
-        # reverse sublist 
-        l, r = i + 1, n - 1
-        while l < r:
-            nums[l], nums[r] = nums[r], nums[l]
-            l += 1
-            r -= 1
-
+        if k < 0:
+            nums.reverse()
+        else:
+            l = len(nums) - 1
+            while l < k:
+                if nums[l] > nums[k]:
+                    break
+                l -= 1
+            
+            nums[l], nums[k] = nums[k], nums[l]
+            nums[k+1:] = reversed(nums[k+1:])
 
 # @lc code=end
 
