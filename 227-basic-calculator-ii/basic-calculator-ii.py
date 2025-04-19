@@ -2,24 +2,23 @@ class Solution:
     def calculate(self, s: str) -> int:
         stack = []
         last_op = "+"
-        num = 0
+        res = 0
 
-        # iterate through the string
         for i, char in enumerate(s):
             if char.isdigit():
-                num = num * 10 + int(char)
+                res = 10 * res + int(char)
             
-            if char in "+-*/" or i == len(s) - 1:
-                if last_op == '+':
-                    stack.append(num)
+            if char in "+-/*" or i == len(s) - 1:
+                if last_op == "+":
+                    stack.append(res)
                 elif last_op == '-':
-                    stack.append(-num)
-                elif last_op == '*':
-                    stack.append(stack.pop() * num)
+                    stack.append(-res)
+                elif last_op == "*":
+                    stack.append(stack.pop() * res)
                 elif last_op == '/':
-                    stack.append(int(stack.pop() / num))
+                    stack.append(int(stack.pop() / res))
                 
-                num = 0
+                res = 0
                 last_op = char
         
         return sum(stack)

@@ -5,30 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def sumNumbers(self, root: Optional[TreeNode]) -> int:        
-        if not root:
-            return 0
-        
-        if not root.left and not root.right:
-            return root.val
-        
-        patterns = []
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
 
-        def helper(node, pattern):
+        def dfs(node, pattern):
             if not node:
                 return 
-            
+                
             if not node.left and not node.right:
-                val = pattern + str(node.val)
-                # if val not in patterns:
-                # print('appending', val)
-                patterns.append(val)
-            
-            return helper(node.left, pattern + str(node.val)) or helper(node.right, pattern + str(node.val))
+                pattern += str(node.val)
+                self.res += int(pattern)
+                return 
+            dfs(node.left, pattern + str(node.val))
+            dfs(node.right, pattern + str(node.val))
         
-        # fill the patterns
-        helper(root, '')
-        
-        # process the patterns
-        return sum(int(pattern) if pattern != '' else 0 for pattern in patterns)
-            
+        dfs(root, '')
+        return self.res
