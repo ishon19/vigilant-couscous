@@ -18,7 +18,7 @@ class Solution:
             freq = min(freq1, freq2)
 
             if res and res[-1][0] == product:
-                res[-1][1] += freq
+                res[-1][-1] += freq
             else:
                 res.append([product, freq])
             
