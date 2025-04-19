@@ -18,25 +18,25 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None
-        
-        old_to_new = {}
 
-        current = head
-        while current:
-            old_to_new[current] = Node(current.val)
-            current = current.next
+        nodeMap = {}
+
+        curr = head
+        while curr:
+            nodeMap[curr] = Node(curr.val)
+            curr = curr.next
         
-        current = head
-        while current:
-            if current.next:
-                old_to_new[current].next =  old_to_new[current.next]
+        curr = head
+        while curr:
+            if curr.next:
+                nodeMap[curr].next = nodeMap[curr.next]
             
-            if current.random:
-                old_to_new[current].random = old_to_new[current.random]
-
-            current = current.next
+            if curr.random:
+                nodeMap[curr].random = nodeMap[curr.random]
+            
+            curr = curr.next
         
-        return old_to_new[head]
+        return nodeMap[head]
                
 # @lc code=end
 
