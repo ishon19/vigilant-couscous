@@ -7,34 +7,33 @@
 # @lc code=start
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if not s or not t:
-            return ""
-        
-        res = ""
-        count_t = defaultdict(int)
-        count_s = defaultdict(int)
+        t_count = defaultdict(int)
+        s_count = defaultdict(int)
 
         for char in t:
-            count_t[char] += 1
-        
-        min_length = len(s) + 1
-        left = 0
+            t_count[char] += 1
+
+        res = ""
+        min_len = len(s) + 1
         matches = 0
+        left = 0
 
         for right in range(len(s)):
-            # expand the window by adding the character to the right
-            count_s[s[right]] += 1
+            char = s[right]
+            s_count[char] += 1
 
-            if count_s[s[right]] <= count_t[s[right]]:
+            if s_count[char] <= t_count[char]:
                 matches += 1
             
-            # shrink the window from left if possible 
-            while count_s[s[left]] >= count_t[s[left]]:
-                count_s[s[left]] -= 1
+            left_char = s[left]
+            while s_count[left_char] > t_count[left_char]:
+                s_count[left_char] -= 1
                 left += 1
+                if left == len(s):
+                    break
             
-            if matches == len(t) and right - left + 1 < min_length:
-                min_length = right - left + 1
+            if matches == len(t) and right - left + 1 < min_len:
+                min_len = right - left + 1
                 res = s[left:right+1]
         
         return res
