@@ -20,12 +20,12 @@ class Solution:
                     res[prev_id] += timestamp - prev_timestamp
                 stack.append([func_id, timestamp])
             else:
-                curr_id, start_time = stack.pop() 
-                res[curr_id] += timestamp - start_time + 1
+                curr_id, curr_timestamp = stack.pop()
+                res[curr_id] += timestamp - curr_timestamp + 1
 
                 if stack:
-                    stack[-1][1] = timestamp + 1
-        
+                    stack[-1][-1] = timestamp + 1
+
         return res
 # @lc code=end
 
