@@ -8,20 +8,18 @@
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         # sliding window baby
-        start = 0
-        res = 0
-        zeros = 0
+        left = res = zeroes = 0
 
-        for end in range(len(nums)):
-            if nums[end] == 0:
-                zeros += 1
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zeroes += 1
             
-            while zeros > k:
-                if nums[start] == 0:
-                    zeros -= 1
-                start += 1
+            while zeroes > k:
+                if nums[left] == 0:
+                    zeroes -= 1
+                left += 1
             
-            res = max(res, end - start + 1)
+            res = max(res, right - left + 1)
         
         return res
 # @lc code=end
