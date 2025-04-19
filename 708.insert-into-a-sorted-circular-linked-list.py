@@ -13,6 +13,7 @@ class Node:
         self.next = next
 """
 
+
 class Solution:
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
         newNode = Node(insertVal)
@@ -21,21 +22,18 @@ class Solution:
             newNode.next = newNode
             return newNode
 
-        curr = head
-        while True:
-            if curr.val <= insertVal <= curr.next.val:
-                break
+        dummy = head
+        ptr = head.next
+        while ptr != head:
+            if head.val < insertVal < ptr.val:
+                save = head.next
+                head.next = Node(insertVal)
+                head.next.next = save
+            else:
+                save = ptr.next
+                ptr.next = Node(insertVal)
+                ptr.next.next = save
+            ptr = ptr.next
 
-            if curr.val > curr.next.val and (insertVal >= curr.val or insertVal <= curr.next.val):
-                break
-
-            if curr.next == head:
-                break
-
-            curr = curr.next
-        
-        newNode.next = curr.next
-        curr.next = newNode
-        return head
+        return dummy
 # @lc code=end
-
