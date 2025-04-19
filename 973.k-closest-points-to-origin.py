@@ -7,16 +7,17 @@
 # @lc code=start
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        max_heap = []
+        min_heap = []
 
         for x, y in points:
-            dist = -(x**2 + y**2)
-            heappush(max_heap, (dist, [x, y]))
+            dist = [(x**2 + y**2), [x, y]]
+            heappush(min_heap, dist)
 
-            if len(max_heap) > k:
-                heappop(max_heap)
+        res = []
+        while len(res) != k:
+            _, point = heappop(min_heap)
+            res.append(point)
         
-        return [point for (dist, point) in max_heap]
-            
+        return res
 # @lc code=end
 
