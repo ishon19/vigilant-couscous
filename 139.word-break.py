@@ -7,22 +7,20 @@
 # @lc code=start
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        n = len(s)
+        wordSet = set(wordDict)
         q = deque([0])
         seen = set()
-        wordset = set(wordDict)
 
         while q:
             start = q.popleft()
-
-            if start == n:
+            if start == len(s):
                 return True
 
-            for end in range(start + 1, n + 1):
+            for end in range(start+1, len(s) + 1):
                 if end in seen:
                     continue
-
-                if s[start:end] in wordset:
+                
+                if s[start:end] in wordSet:
                     q.append(end)
                     seen.add(end)
         
