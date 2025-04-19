@@ -9,25 +9,26 @@ class Solution:
     def maxLength(self, ribbons: List[int], k: int) -> int:
         if sum(ribbons) < k:
             return 0
-        
-        left, right = 1, max(ribbons)
 
-        def isFeasible(length):
-            pieces = 0
+        def isFeasible(x):
+            # how many pieces of length x 
+            # can be cut from each ribbon 
+            count = 0
             for ribbon in ribbons:
-                pieces += ribbon // length
-                if pieces >= k:
-                    return True 
-            return False
-    
-        while left < right:
-            mid = (left + right + 1) // 2
+                count += ribbon // x
+            return count >= k
+
+        l, r = 1, max(ribbons)
+
+        while l <= r:
+            mid = (l + r) // 2
+
             if isFeasible(mid):
-                left = mid
+                l = mid + 1
             else:
-                right = mid - 1
+                r = mid -1 
         
-        return left
+        return r
         
 # @lc code=end
 
