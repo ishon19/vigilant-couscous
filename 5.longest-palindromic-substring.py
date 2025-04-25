@@ -7,23 +7,19 @@
 # @lc code=start
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        # we can try expanding around the center to find the max
-        # palindrome
-        def expand_around_center(a, b): 
-            i, j = a, b
 
-            while i >=0 and j < len(s) and s[i] == s[j]:
+        def expand_around_center(i, j):
+            while i >=0  and j < len(s) and s[i] == s[j]:
                 i -= 1
                 j += 1
-            
             return s[i+1:j]
+
         
         res = ""
-        for i in range(len(s)):
-            p1 = expand_around_center(i,i)
-            p2 = expand_around_center(i,i+1)
-            res = max(res, p1, p2, key=len)
-        
+        for i, _ in enumerate(s):
+            odd_length = expand_around_center(i, i)
+            even_length = expand_around_center(i, i+1)
+            res = max(res, odd_length, even_length, key=len)
         return res
             
 # @lc code=end
