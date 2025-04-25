@@ -23,7 +23,7 @@ class Solution:
             left2 = float("-inf") if py == 0 else nums2[py-1]
             right2 = float("inf") if py == y else nums2[py]
 
-            if left1 <= right2 and left2 <= right1:
+            if left1 <= right2 and right1 >= left2:
                 if (x + y) % 2 == 0:
                     return (max(left1, left2) + min(right1, right2)) / 2
                 else:
@@ -31,9 +31,9 @@ class Solution:
             elif left1 > right2:
                 r = px - 1
             else:
-                l =  px + 1
+                l = px + 1
         
-        raise ValueError("Arrays not sorted!")
+        return -1          
         
 # @lc code=end
 
