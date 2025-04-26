@@ -1,22 +1,17 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         res = []
-        path = []
 
-        def dfs(idx, opening, closing):
-            if idx == 2*n:
-                res.append(''.join(path))
-                return
+        def dfs(path, opening, closing):
+            if len(path) == 2 * n:
+                res.append(path)
+                return 
             
-            if opening!=n:
-                path.append('(')
-                dfs(idx+1, opening + 1, closing)
-                path.pop()
+            if opening < n:
+                dfs(path + '(', opening + 1, closing)
             
             if closing < opening:
-                path.append(')')
-                dfs(idx+1, opening, closing+1)
-                path.pop()
-        
-        dfs(0, 0, 0)
+                dfs(path + ')', opening, closing + 1)
+
+        dfs("", 0, 0)
         return res
