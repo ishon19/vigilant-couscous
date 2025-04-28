@@ -10,8 +10,9 @@ class Solution:
             while window[s[r]] > 1:
                 window[s[l]] -= 1
                 l += 1
-            
+
             res = max(res, r - l + 1)
             r += 1
 
+        
         return res

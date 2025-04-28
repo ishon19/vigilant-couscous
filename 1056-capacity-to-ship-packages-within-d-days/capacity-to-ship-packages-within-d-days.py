@@ -1,25 +1,29 @@
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
-        # check if a magical capacity of x can be shipped in `days` days
+        l, r = max(weights), sum(weights)
+
         def isFeasible(capacity):
-            count = 1
-            total = 0
+            days_needed = 1
+            curr = 0
 
             for weight in weights:
-                if total + weight > capacity:
-                    count += 1
-                    total = weight
-                else:
-                    total += weight
-            
-            return count
-        
-        l, r  = max(weights), sum(weights)
+                if curr + weight > capacity:
+                    days_needed += 1
+                    curr = weight
+                else:                
+                    curr += weight
+
+                if days_needed > days:
+                    return False 
+            return True
+                
+
         while l <= r:
-            mid = (l + r) // 2            
-            if isFeasible(mid) > days:
-                l = mid + 1
+            mid = (l+r) // 2
+
+            if isFeasible(mid):
+                r = mid - 1
             else:
-                r = mid - 1 
+                l = mid + 1
         
         return l

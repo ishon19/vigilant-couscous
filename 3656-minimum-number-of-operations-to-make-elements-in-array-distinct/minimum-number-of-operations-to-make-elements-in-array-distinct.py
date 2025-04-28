@@ -1,23 +1,17 @@
 class Solution:
-    def isDistinct(self, arr):
-        return len(arr) == len(set(arr))
-
     def minimumOperations(self, nums: List[int]) -> int:
-        # base case
-        if self.isDistinct(nums):
-            return 0
+        ops = 0
+        start = 0
+
+        while start < len(nums):
+            remain = nums[start:]
+            if len(remain) == len(set(remain)):
+                return ops
+            
+            start += min(3, len(nums) - start)
+            ops += 1
         
-        if len(nums) < 3:
-            return 1
-        
-        res = 0
-        
-        while nums:
-            if not self.isDistinct(nums):
-                res += 1
-            nums = nums[3:]
-        
-        return res
+        return ops
 
 
 
