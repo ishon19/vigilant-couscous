@@ -5,10 +5,10 @@ class Solution:
 
     def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
         rows, cols = len(box), len(box[0])
-        
+
         for row in range(rows):
-            lastFree = cols - 1
-            for i in range(cols-1,-1,-1):
+            lastFree = cols-1
+            for i in range(cols-1, -1, -1):
                 if box[row][i] == '*':
                     lastFree = i - 1
                 elif box[row][i] == '#':
