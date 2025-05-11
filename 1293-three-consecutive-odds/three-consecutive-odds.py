@@ -1,15 +1,14 @@
 class Solution:
     def threeConsecutiveOdds(self, arr: List[int]) -> bool:
-        if len(arr) < 3:
-            return False
+        l = 0 
 
-        start, end = 0, 2
-        res = False
+        while l < len(arr):
+            streak = 0
+            while l < len(arr) and arr[l] % 2 != 0:
+                streak += 1
+                if streak == 3:
+                    return True
+                l += 1
+            l += 1
 
-        while end < len(arr):
-            if all(num%2!=0 for num in arr[start: end+1]):
-                return True
-            start += 1
-            end += 1
-        
-        return res
+        return False
