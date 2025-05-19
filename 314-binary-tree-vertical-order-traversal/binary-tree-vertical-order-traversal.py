@@ -6,17 +6,32 @@
 #         self.right = right
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        traversal = collections.defaultdict(list)
-        queue = collections.deque()
-        queue.append([root, 0])
+        if not root:
+            return []
 
-        while queue:
-            node, offset = queue.popleft()
-            if node:
-                queue.append([node.left, offset - 1])
-                queue.append([node.right, offset + 1])
-                traversal[offset].append(node.val)
+        offset_map = defaultdict(list)
+
+        q = deque([(root, 0)])
+        min_offset = 0
+        max_offset = 0
+
+        while q:
+            node, offset = q.popleft()
+
+            offset_map[offset].append(node.val)
+            min_offset = min(min_offset, offset)
+            max_offset = max(max_offset, offset)
+
+            if node.left:
+                q.append((node.left, offset-1))
+            
+            if node.right:
+                q.append((node.right, offset+1))
+
+        res = []
+        for offset in range (min_offset, max_offset+1):
+            res.append(offset_map[offset])
         
-        # print('traversed', traversal)
+        return res
 
-        return [traversal[k] for k in sorted(traversal.keys())]
+            
