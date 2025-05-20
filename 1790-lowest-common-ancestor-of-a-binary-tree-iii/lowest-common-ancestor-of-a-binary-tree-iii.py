@@ -20,30 +20,34 @@ until they converge.
 """
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
+        # ptr1 = p
+        # ptr2 = q
+
+        # while ptr1 != ptr2:
+        #     ptr1 = ptr1.parent if ptr1.parent else q
+        #     ptr2 = ptr2.parent if ptr2.parent else p
+        
+        # return ptr1
         def get_depth(node):
             depth = 0
-            while node:
-                node = node.parent
+            while node.parent:
                 depth += 1
-            return depth
+                node = node.parent
+            return depth 
         
-        # find the depth of both nodes
-        depth_p = get_depth(p)
-        depth_q = get_depth(q)
+        p_depth = get_depth(p) 
+        q_depth = get_depth(q)
 
-        # equalize the depth if they are different
-        while depth_p > depth_q:
+        while p_depth > q_depth:
             p = p.parent
-            depth_p -= 1
+            p_depth -= 1
         
-        while depth_q > depth_p:
+        while q_depth > p_depth:
             q = q.parent
-            depth_q -= 1
+            q_depth -= 1
         
-        # move up till they both intersect
         while p != q:
             p = p.parent
-            q = q.parent
+            q = q.parent 
         
-        return q
-
+        return p
