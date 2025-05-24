@@ -1,18 +1,14 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1 or numRows >= len(s):
-            return s
-        
-        rows = [''] * numRows
+        pattern = [''] * numRows
+        direction = 1
         row = 0
-        direction = -1
 
-        for char in s:
-            rows[row] += char
+        for i in range(len(s)):
+            pattern[row] += s[i]
+            row = (row + direction) % numRows
 
-            if row == 0 or row == numRows-1:
+            if row == numRows-1 or row == 0:
                 direction = -direction
-            
-            row += direction
         
-        return ''.join(rows)
+        return ''.join(pattern)
