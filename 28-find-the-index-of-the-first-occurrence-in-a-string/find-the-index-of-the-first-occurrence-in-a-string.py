@@ -1,15 +1,11 @@
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        if haystack == needle:
-            return 0
-        
-        start = 0
-        
-        for end in range(len(needle), len(haystack)+1):
-            # print(start, end, haystack[start:end])
-            if haystack[start:end] == needle:
-                return start
-            else:
-                start += 1
-        
+        l, r = 0, len(needle)-1
+
+        while r < len(haystack):
+            if haystack[l:r+1] == needle:
+                return l
+            l += 1
+            r += 1
+
         return -1
