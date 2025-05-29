@@ -1,14 +1,24 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        def isValid(r, c, k):
-            row_check = board[r].count(k) == 1
-            col_check = [board[i][c] for i in range(9)].count(k) == 1
-            box_check = [board[i][j] for i in range(r//3*3, r//3*3 + 3) for j in range(c//3*3, c//3*3 + 3)].count(k) == 1
-            return row_check and col_check and box_check
-        
-        for i in range(9):
-            for j in range(9):
-                if board[i][j] != '.' and not isValid(i, j, board[i][j]):
+        row_set = [set() for _ in range(9)]
+        col_set = [set() for _ in range(9)]
+        box_set = [[set() for _ in range(3)] for _ in range(3)]
+
+        for row in range(9):
+            for col in range(9):
+                curr = board[row][col]
+                if curr == '.':
+                    continue
+
+                if curr in row_set[row]:
                     return False
+                if curr in col_set[col]:
+                    return False
+                if curr in box_set[row//3][col//3]:
+                    return False
+                
+                row_set[row].add(curr)
+                col_set[col].add(curr)
+                box_set[row//3][col//3].add(curr)
         
         return True
