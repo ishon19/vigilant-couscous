@@ -1,21 +1,18 @@
 class Solution:
-    def __init__(self):
-        self.res = []
-        self.pq = []
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        buckets = [[] for _ in range(len(nums) + 1)]
+        counts = Counter(nums)
+        res = []
 
-    def getCounts(self, arr):
-        counts = Counter(arr)
-        return [(-v, k) for k, v in counts.items()]
-
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:        
-        self.pq = self.getCounts(nums)
-        heapify(self.pq)
-
-        while k:
-            _, num = heappop(self.pq)
-            self.res.append(num)
-            k -= 1
+        for key, value in counts.items():
+            buckets[value].append(key)
         
-        return self.res
+        for i in range(len(nums), -1, -1):
+            res.extend(buckets[i])
 
+            if len(res) >= k:
+                return res[:k]
+        
+        return res
+        
 
