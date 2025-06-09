@@ -1,18 +1,22 @@
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        def check_valid(i, j):
-            while i < j:
-                if s[i] != s[j]:
-                    return False
-                i += 1
-                j -= 1
-            return True
+        def isValid(left, right):
+            while left < right:
+                if s[left] != s[right]:
+                    return False 
+                left += 1
+                right -= 1
+            return True 
         
-        l, r = 0, len(s) - 1
-        while l < r:
-            if s[l] != s[r]:
-                return check_valid(l + 1, r) or check_valid(l, r - 1)
-            l += 1
-            r -= 1
+        left, right = 0, len(s)-1
+
+        if isValid(left, right):
+            return True
+
+        while left < right:
+            if s[left] != s[right]:
+                return isValid(left + 1, right) or isValid(left, right - 1)  
+            left += 1
+            right -= 1
         
         return True
