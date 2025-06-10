@@ -7,31 +7,24 @@
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
-            return []
-
-        offset_map = defaultdict(list)
-
+            return [] 
+        
+        offsetMap = defaultdict(list)
         q = deque([(root, 0)])
-        min_offset = 0
-        max_offset = 0
+        minOffset, maxOffset = 0, 0 
 
         while q:
             node, offset = q.popleft()
-
-            offset_map[offset].append(node.val)
-            min_offset = min(min_offset, offset)
-            max_offset = max(max_offset, offset)
+            offsetMap[offset].append(node.val)
+            minOffset = min(minOffset, offset)
+            maxOffset = max(maxOffset, offset)
 
             if node.left:
-                q.append((node.left, offset-1))
-            
+                q.append((node.left, offset - 1))            
             if node.right:
-                q.append((node.right, offset+1))
+                q.append((node.right, offset + 1))
 
         res = []
-        for offset in range (min_offset, max_offset+1):
-            res.append(offset_map[offset])
-        
+        for offset in range(minOffset, maxOffset + 1):
+            res.append(offsetMap[offset])
         return res
-
-            
