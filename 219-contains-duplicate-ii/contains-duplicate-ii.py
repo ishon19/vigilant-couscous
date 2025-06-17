@@ -1,11 +1,10 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        cache = defaultdict(list)
+        seen = defaultdict(int)
 
         for i, num in enumerate(nums):
-            if num in cache:
-                if abs(i - cache[num][-1]) <= k:
-                    return True
-            cache[num].append(i)
+            if num in seen and abs(seen[num] - i) <= k:
+                return True             
+            seen[num] = i
         
         return False
