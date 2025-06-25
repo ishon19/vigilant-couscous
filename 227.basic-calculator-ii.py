@@ -7,30 +7,33 @@
 # @lc code=start
 class Solution:
     def calculate(self, s: str) -> int:        
-        if not s:
-            return 0
+        s = s.strip()
 
-        stack = []
+        last_num = 0
         cur_num = 0
-        op = '+'
+        total = 0
+        op = "+"
 
         for i, c in enumerate(s):
+            
             if c.isdigit():
                 cur_num = cur_num * 10 + int(c)
             
-            if (c != ' ' and not c.isdigit()) or i == len(s) - 1:
-                if op == '+':
-                    stack.append(cur_num)
-                elif op == '-':
-                    stack.append(-cur_num)
-                elif op == '*':
-                    stack.append(stack.pop() * cur_num)
-                elif op == '/':
-                    stack.append(int(stack.pop() / cur_num))
+            if i == len(s) - 1 or c in "+-*/":
+                if op == "+":
+                    total += last_num
+                    last_num = cur_num
+                elif op == "-":
+                    total += last_num
+                    last_num = -cur_num
+                elif op == "*":
+                    last_num = last_num * cur_num
+                elif op == "/":
+                    last_num = int(last_num / cur_num) if last_num >=0 else -(-last_num // cur_num)
                 
-                cur_num = 0
                 op = c
+                cur_num = 0
 
-        return sum(stack)
+        return total + last_num
 # @lc code=end
 
