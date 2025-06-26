@@ -9,21 +9,21 @@ class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         def isFeasible(k):
             time = 0
-            for pile in piles:
-                currentTime = ceil(pile / k)
-                time += currentTime
+            for items in piles:
+                time += ceil(items / k)
             return time <= h
-
-        left, right = 1, max(piles)
-
-        while left <= right:
-            mid = (left + right) // 2
-            if isFeasible(mid):
-                right = mid - 1
-            else:
-                left = mid + 1
         
-        return left
+        l, r = 1, max(piles)
+
+        while l <= r:
+            mid = (l + r) // 2
+
+            if isFeasible(mid):
+                r = mid - 1
+            else:
+                l = mid + 1
+        
+        return l
             
 # @lc code=end
 
