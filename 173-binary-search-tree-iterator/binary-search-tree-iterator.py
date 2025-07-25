@@ -4,31 +4,30 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class BSTIterator:
-
-    def __init__(self, root: Optional[TreeNode]):
+    def __init__(self, root):
+        self.root = root
         self.stack = []
-        self._push_left(root)
+        self._push_left_node(root)
+
+    def _push_left_node(self, node):
+        ptr = node
+        while ptr:
+            self.stack.append(ptr)
+            ptr = ptr.left
+
+    def next(self):
+        node = self.stack.pop()
+        val = node.val
+        if node.right:
+            self._push_left_node(node.right)
+        return val
     
-    def  _push_left(self, node):
-        if not node:
-            return
-
-        while node:
-            self.stack.append(node)
-            node = node.left
+    def hasNext(self):
+        return len(self.stack) != 0
         
-    def next(self) -> int:
-        top = self.stack.pop()
 
-        if top.right:
-            # append the left side of the tree
-            self._push_left(top.right)
-        
-        return top.val
-
-    def hasNext(self) -> bool:
-        return len(self.stack) > 0
 
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
