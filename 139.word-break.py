@@ -7,23 +7,23 @@
 # @lc code=start
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        wordSet = set(wordDict)
+        uniqueWords = set(wordDict)
+
         q = deque([0])
         seen = set()
-
-        while q:
-            start = q.popleft()
-            if start == len(s):
-                return True
-
-            for end in range(start+1, len(s) + 1):
-                if end in seen:
-                    continue
-                
-                if s[start:end] in wordSet:
-                    q.append(end)
-                    seen.add(end)
         
+        while q:
+            startIndex = q.popleft()
+            
+            if startIndex == len(s):
+                return True 
+
+            for endIndex in range(startIndex+1, len(s)):
+                if endIndex not in seen and s[startIndex+1:endIndex+1] in uniqueWords:
+                    q.append(endIndex)
+                    seen.add(startIndex)
+            
         return False
+                    
 # @lc code=end
 

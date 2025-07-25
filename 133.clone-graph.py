@@ -17,21 +17,7 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
-            return None
-        
-        clones = {}
+            return None 
 
-        def dfs(node):
-            if node in clones:
-                return clones[node]
-            
-            clonedNode = Node(node.val)
-            clones[node] = clonedNode
-
-            for neighbor in node.neighbors:
-                clonedNode.neighbors.append(dfs(neighbor))
-            
-            return clonedNode
         
-        return dfs(node)
 # @lc code=end

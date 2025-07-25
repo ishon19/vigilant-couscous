@@ -7,32 +7,20 @@
 # @lc code=start
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        if not numCourses:
-            return False 
-
         graph = defaultdict(list)
-
+        indegrees = [0] * numCourses
+        
         for course, prereq in prerequisites:
             graph[prereq].append(course)
+            indegrees[prereq] += 1
         
-        indegree = {i:0 for i in range(numCourses)}
-        for prereq, courses in graph.items():
-            for course in courses:
-                indegree[course] += 1
+        q = deque([course for course in range(numCourses) if indegrees[course] == 0])
         
-        q = deque([course for course in indegree.keys() if indegree[course] == 0])
-        order = []
-
         while q:
-            node = q.popleft()
-            order.append(node)
-
-            for neighbor in graph[node]:
-                indegree[neighbor] -= 1
-                if indegree[neighbor] == 0:
-                    q.append(neighbor)
-        
-        return len(order) == numCourses
+            pass
+            
+        return 
+            
 
 # @lc code=end
 

@@ -8,7 +8,6 @@
 class Solution:
     def maximumSwap(self, num: int) -> int:
         digits = list(str(num))
-
         last_occ = {int(digit): i for i, digit in enumerate(digits)}
 
         for i, digit in enumerate(digits):
