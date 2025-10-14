@@ -11,8 +11,7 @@ class Solution:
         for i in range(len(nums)):
             l, r = i, i + k - 1
             lastInc = False
-            while r <len(nums):       
-                # print(l,r, nums[l:r+1], checkInc(nums[l:r+1]))         
+            while r <len(nums):               
                 if checkInc(nums[l:r+1]) and lastInc:
                     return True
                 lastInc = checkInc(nums[l:r+1])
