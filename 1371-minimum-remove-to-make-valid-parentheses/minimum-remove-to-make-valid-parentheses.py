@@ -1,17 +1,20 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         stack = []
-
-        for idx, char in enumerate(s):
-            if char in ['(', ')']:
-                if stack and stack[-1][-1] == '(' and char == ')':
-                    stack.pop()
+        for idx, c in enumerate(s):
+            if c in ['(', ')']:
+                if stack:
+                    if c == ')' and stack[-1][0] == '(':
+                        stack.pop()
+                    else:
+                        stack.append((c, idx))
                 else:
-                    stack.append([idx, char])
-
-        skipIdx = set([idx for idx, _ in stack])
+                    stack.append((c, idx))
+        
+        skipIdx = [idx for _, idx in stack]
         res = ''
-        for idx, char in enumerate(s):
+        for idx, c in enumerate(s):
             if idx not in skipIdx:
-                res += char
+                res += c
         return res
+                
