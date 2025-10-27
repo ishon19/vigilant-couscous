@@ -7,19 +7,15 @@
 # @lc code=start
 class Solution:
     def isValid(self, s: str) -> bool:
-        bracketMap = {
-            ')': '(',
-            '}': '{',
-            ']': '['
-        }
-
         stack = []
-
+        bracketPairs = {'(': ')', '{': '}', '[': ']'}
+        
         for char in s:
-            if char in bracketMap:
-                if not stack or stack[-1] != bracketMap[char]:
-                    return False
-                stack.pop() 
+            if stack:
+                if stack[-1] in bracketPairs.keys() and char == bracketPairs[stack[-1]]:
+                    stack.pop()
+                else:
+                    stack.append(char)
             else:
                 stack.append(char)
         
